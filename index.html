@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RunTrack - Running Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="authView" class="auth-shell">
+    <div class="auth-card">
+      <div class="brand">🏃 RunTrack</div>
+      <p class="muted">Catat lari, pantau progres, dan tetap konsisten.</p>
+
+      <div class="tabs">
+        <button class="tab active" data-auth="login">Login</button>
+        <button class="tab" data-auth="register">Register</button>
+        <button class="tab" data-auth="forgot">Forgot Password</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <label>Email<input id="loginEmail" type="email" required placeholder="runner@email.com"></label>
+        <label>Password<input id="loginPassword" type="password" required placeholder="••••••••"></label>
+        <button class="primary" type="submit">Login</button>
+        <p id="loginMsg" class="message"></p>
+      </form>
+
+      <form id="registerForm" class="auth-form hidden">
+        <label>Nama<input id="regName" required placeholder="Nama kamu"></label>
+        <label>Email<input id="regEmail" type="email" required placeholder="runner@email.com"></label>
+        <label>Password<input id="regPassword" type="password" minlength="8" required placeholder="Minimal 8 karakter"></label>
+        <button class="primary" type="submit">Buat Akun</button>
+        <p id="registerMsg" class="message"></p>
+      </form>
+
+      <form id="forgotForm" class="auth-form hidden">
+        <label>Email<input id="forgotEmail" type="email" required placeholder="runner@email.com"></label>
+        <button class="primary" type="submit">Kirim Reset Password</button>
+        <p id="forgotMsg" class="message"></p>
+      </form>
+    </div>
+  </div>
+
+  <div id="appView" class="hidden">
+    <header class="topbar">
+      <div>
+        <div class="brand">🏃 RunTrack</div>
+        <span class="muted">Running Tracker</span>
+      </div>
+      <div class="user-area">
+        <span id="welcomeUser"></span>
+        <button id="logoutBtn" class="ghost">Logout</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div>
+          <h1>Halo, <span id="runnerName"></span> 👋</h1>
+          <p>Kelola aktivitas lari kamu dalam satu tempat.</p>
+        </div>
+        <button id="openRunBtn" class="primary">＋ Catat Lari</button>
+      </section>
+
+      <section class="stats">
+        <div class="stat"><span>Total Aktivitas</span><strong id="totalRuns">0</strong></div>
+        <div class="stat"><span>Total Jarak</span><strong id="totalDistance">0 km</strong></div>
+        <div class="stat"><span>Total Waktu</span><strong id="totalDuration">0 mnt</strong></div>
+        <div class="stat"><span>Rata-rata Pace</span><strong id="avgPace">-</strong></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Riwayat Lari</h2>
+            <p class="muted">Cari dan filter aktivitas kamu.</p>
+          </div>
+          <div class="filters">
+            <input id="searchInput" placeholder="Cari catatan...">
+            <input id="dateFilter" type="date">
+            <select id="distanceFilter">
+              <option value="all">Semua jarak</option>
+              <option value="short">Di bawah 5 km</option>
+              <option value="medium">5–10 km</option>
+              <option value="long">Di atas 10 km</option>
+            </select>
+          </div>
+        </div>
+        <div id="runList" class="run-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="runModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="modalTitle">Catat Lari</h2>
+        <button id="closeModal" class="icon">×</button>
+      </div>
+      <form id="runForm">
+        <input type="hidden" id="runId">
+        <label>Tanggal<input id="runDate" type="date" required></label>
+        <label>Jarak (km)<input id="runDistance" type="number" min="0.1" step="0.01" required placeholder="5"></label>
+        <label>Durasi (menit)<input id="runDuration" type="number" min="1" step="1" required placeholder="32"></label>
+        <label>Catatan<textarea id="runNote" maxlength="200" placeholder="Contoh: Easy run pagi"></textarea></label>
+        <div class="calculated">Pace otomatis: <strong id="pacePreview">-</strong> min/km</div>
+        <button class="primary" type="submit">Simpan Aktivitas</button>
+        <p id="runMsg" class="message"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
